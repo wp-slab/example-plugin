@@ -24,5 +24,35 @@ add_action('slab_loaded', function($slab){
 
 	$slab->autoloader->registerNamespace('Example', HL_EXAMPLE_DIR . 'src');
 
-});
 
+	// $req = $slab->make('Slab\Core\Http\Request');
+	// $req = Slab\Core\Http\Request::create('POST', 'https://test.com:8080/foo/bar?this=that');
+	// _print_r($req);
+	// die();
+
+
+	$slab->router->get('hotels', 'hotels collection', function(){
+		echo 'hotels collection';
+	});
+
+	$slab->router->post('hotels', 'create hotel', function(){
+		echo 'create hotel';
+	});
+
+	$slab->router->any('hotels/foo', 'hotel entity', function(){
+		echo 'hotel entity';
+	});
+
+	$slab->router->get('news', 'news archive', function(){
+		echo 'news archive';
+	});
+
+	$slab->router->get('news/single', 'news single', function(){
+		echo 'news single';
+	});
+
+
+	// $slab->make('Slab\Cli\Dispatcher')->addCommand(new Slab\Cli\Command('example:command'));
+
+
+});
