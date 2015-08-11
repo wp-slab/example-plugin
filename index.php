@@ -31,23 +31,46 @@ add_action('slab_loaded', function($slab){
 	// die();
 
 
-	$slab->router->get('hotels', 'hotels collection', function(){
+
+	$slab->router->get('test',
+		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
+			return 'ab' . $next() . 'aa';
+		},
+		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
+			return 'bb' . $next() . 'ba';
+		},
+		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
+			return ' cont ';
+		}
+	);
+
+
+	$authFn = function($req, $next) {
+		header('X-Auth: true');
+		return $next();
+	};
+
+	$slab->router->get('test2', $authFn, 'Example\Controller\TestController@action_index');
+
+
+
+	$slab->router->get('hotels', function(){
 		echo 'hotels collection';
 	});
 
-	$slab->router->post('hotels', 'create hotel', function(){
+	$slab->router->post('hotels', function(){
 		echo 'create hotel';
 	});
 
-	$slab->router->any('hotels/foo', 'hotel entity', function(){
+	$slab->router->get('hotels/foo', function(){
 		echo 'hotel entity';
 	});
 
-	$slab->router->get('news', 'news archive', function(){
+	$slab->router->get('news', function(){
 		echo 'news archive';
 	});
 
-	$slab->router->get('news/single', 'news single', function(){
+	$slab->router->get('news/single', function(){
 		echo 'news single';
 	});
 
