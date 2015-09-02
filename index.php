@@ -24,58 +24,24 @@ add_action('slab_loaded', function($slab){
 
 	$slab->autoloader->registerNamespace('Example', HL_EXAMPLE_DIR . 'src');
 
-
-	// $req = $slab->make('Slab\Core\Http\Request');
-	// $req = Slab\Core\Http\Request::create('POST', 'https://test.com:8080/foo/bar?this=that');
-	// _print_r($req);
-	// die();
+});
 
 
+// Routes
+add_action('slab_routes', function($routes){
 
-	$slab->router->get('test',
-		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
-			return 'ab' . $next() . 'aa';
-		},
-		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
-			return 'bb' . $next() . 'ba';
-		},
-		function(\Slab\Core\Http\RequestInterface $request, \Closure $next){
-			return ' cont ';
-		}
-	);
-
-
-	$authFn = function($req, $next) {
-		header('X-Auth: true');
-		return $next();
-	};
-
-	$slab->router->get('test2', $authFn, 'Example\Controller\TestController@action_index');
-
-
-
-	$slab->router->get('hotels', function(){
-		echo 'hotels collection';
+	$routes->get('hello', function(\Slab\Core\Http\RequestInterface $req){
+		_print_r($req->query->all());
+		return 'Hello, World!';
 	});
 
-	$slab->router->post('hotels', function(){
-		echo 'create hotel';
-	});
+	$routes->get('hello/{name}', 'Example\Controller\TestController@getIndex');
+	$routes->get('one/{num?}', 'Example\Controller\TestController@getIndex');
 
-	$slab->router->get('hotels/foo', function(){
-		echo 'hotel entity';
-	});
-
-	$slab->router->get('news', function(){
-		echo 'news archive';
-	});
-
-	$slab->router->get('news/single', function(){
-		echo 'news single';
-	});
+});
 
 
-	// $slab->make('Slab\Cli\Dispatcher')->addCommand(new Slab\Cli\Command('example:command'));
-
-
+// Commands
+add_action('slab_commands', function($commands){
+	$commands->addCommand(new Slab\Cli\Command('example:command'));
 });
