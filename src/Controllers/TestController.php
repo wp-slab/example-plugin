@@ -1,6 +1,8 @@
 <?php
 
-namespace Example\Controller;
+namespace Example\Controllers;
+
+use Slab\View\ViewFactory;
 
 /**
  * Test Controller
@@ -12,11 +14,19 @@ class TestController {
 
 
 	/**
+	 * @var Slab\View\ViewFactory
+	 **/
+	protected $views;
+
+
+	/**
 	 * Constructor
 	 *
 	 * @return void
 	 **/
-	public function __construct(\Slab\Router\RouteCollection $routes) {
+	public function __construct(ViewFactory $views) {
+
+		$this->views = $views;
 
 	}
 
@@ -34,6 +44,14 @@ class TestController {
 
 		// return "Hello, $name!";
 
+		// $view = $this->views->make('test', ['foo' => 'bar']);
+		$view = $this->views->make('example:test', ['foo' => 'bar']);
+
+		$view->set('name', $name);
+
+		return $view;
+
+
 		$json = new \Slab\Core\Http\JsonResponse;
 
 		$json->setData(['this' => 'that']);
@@ -42,11 +60,6 @@ class TestController {
 		$json->setJsonpKey('callback');
 
 		return $json;
-
-
-		return new \Slab\Core\Http\JsonResponse(['foo' => 'bar']);
-
-		return new \Slab\View\View;
 
 	}
 

@@ -35,13 +35,19 @@ add_action('slab_routes', function($routes){
 		return 'Hello, World!';
 	});
 
-	$routes->get('hello/{name}', 'Example\Controller\TestController@getIndex');
-	$routes->get('one/{num?}', 'Example\Controller\TestController@getIndex');
+	$routes->get('hello/{name}', 'Example\Controllers\TestController@getIndex');
+	$routes->get('one/{num?}', 'Example\Controllers\TestController@getIndex');
 
 });
 
 
 // Commands
 add_action('slab_commands', function($commands){
-	$commands->addCommand(new Slab\Cli\Command('example:command'));
+	$commands->resolve('Example\Commands\TestCommand@doSomething');
+});
+
+
+// Views
+add_action('slab_views', function($views){
+	$views->addDirectory(HL_EXAMPLE_DIR . 'views', 'example');
 });
