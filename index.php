@@ -28,7 +28,7 @@ add_action('slab_loaded', function($slab){
 
 
 // Routes
-add_action('slab_routes', function($routes){
+add_action('slab_router_routes', function($routes){
 
 	$routes->get('hello', function(\Slab\Core\Http\RequestInterface $req){
 		_print_r($req->query->all());
@@ -42,12 +42,12 @@ add_action('slab_routes', function($routes){
 
 
 // Commands
-add_action('slab_commands', function($commands){
+add_action('slab_cli_commands', function($commands){
 	$commands->resolve('Example\Commands\TestCommand@doSomething');
 });
 
 
 // Views
-add_action('slab_views', function($views){
+add_action('slab_view_directories', function($views){
 	$views->addDirectory(HL_EXAMPLE_DIR . 'views', 'example');
 });
