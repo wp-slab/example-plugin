@@ -39,6 +39,14 @@ class TestController {
 	 **/
 	public function getIndex(\Slab\Core\Http\RequestInterface $req, $name = 'Name') {
 
+		$db = slab('db');
+
+		_var_dump($db);
+
+		die();
+
+
+
 		// _print_r($req->query->all());
 		// _print_r($req->attributes->all());
 

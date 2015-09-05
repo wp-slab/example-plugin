@@ -1,0 +1,31 @@
+{
+	"name": "wp-slab/slab-example-plugin",
+	"description": "An example plugin using Slab components.",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+	"keywords": ["slab", "wordpress"],
+	"homepage": "http://www.wp-slab.com",
+	"authors": [{
+		"name": "Luke Lanchester",
+		"email": "luke@lukelanchester.com",
+		"homepage": "http://hybridlogic.co.uk"
+	}],
+	"require": {
+		"php": ">=5.5.9",
+		"composer/installers": "~1.0.12",
+		"wp-slab/slab-core": "dev-master",
+		"wp-slab/slab-cli": "dev-master",
+		"wp-slab/slab-db": "dev-master",
+		"wp-slab/slab-router": "dev-master",
+		"wp-slab/slab-view": "dev-master"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "4.8.*",
+		"mockery/mockery": "0.9.*"
+	},
+	"extra": {
+		"installer-paths": {
+			"vendor/wp-slab/{$name}/": ["type:wordpress-plugin"]
+		}
+	}
+}
