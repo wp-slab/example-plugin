@@ -35,6 +35,7 @@ add_action('slab_router_routes', function($routes){
 		return 'Hello, World!';
 	});
 
+	$routes->get('test', 'Example\Controllers\TestController@getIndex');
 	$routes->get('hello/{name}', 'Example\Controllers\TestController@getIndex');
 	$routes->get('one/{num?}', 'Example\Controllers\TestController@getIndex');
 

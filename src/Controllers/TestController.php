@@ -37,11 +37,47 @@ class TestController {
 	 *
 	 * @return void
 	 **/
-	public function getIndex(\Slab\Core\Http\RequestInterface $req, $name = 'Name') {
+	public function getIndex(\Slab\DB\DatabaseManager $db, \Slab\Core\Http\RequestInterface $req, $name = 'Name') {
 
-		$db = slab('db');
 
-		_var_dump($db);
+
+		// $conn = $db->connection();
+		// $result = $conn->select('select * from test_table where name = %s order by age asc limit 5', ['kate']);
+		// $result = $conn->insert('insert into test_table (name, age, created) values (%s, %d, %s)', ['adam', 19, '2015-10-03 12:41']);
+		// $result = $conn->update('update test_table set name = %s where age = %d', ['Adam', 19]);
+		// $result = $conn->delete('delete from test_table where age = %d limit 1', [19]);
+
+		// $result = $db->selectRaw('select * from test_table where name = %s order by age asc limit 5', ['kate']);
+		// _var_dump($result);
+
+
+		$query = $db->select('name')->from('test_table')->where('age', '>', 19);
+
+
+
+		$result = $query->col('age', 'name');
+		_var_dump($result);
+
+
+		die();
+
+
+
+		$query = $db
+			// ->select(['p.ID', 'post_id'], 'p.post_name', 'post_title')
+			->select(function(){ return 'count(*) as total'; })
+			->from(['wp_posts', 'p'])
+			// ->join('wp_postmeta')->on('foo', 'bar')
+			// ->where('foo', 'bar')
+			->orderBy('post_date', 'desc')
+			// ->groupBy('some')
+			->limit(10)
+			->offset(0);
+
+		// _var_dump($query);
+
+		// _var_dump($query->sql());
+		_var_dump($query->col('post_name', 'ID'));
 
 		die();
 
