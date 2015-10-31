@@ -37,7 +37,59 @@ class TestController {
 	 *
 	 * @return void
 	 **/
-	public function getIndex(\Slab\DB\DatabaseManager $db, \Slab\Core\Http\RequestInterface $req, $name = 'Name') {
+	public function getIndex(\Slab\DB\Database $db, \Slab\Core\Http\RequestInterface $req, $name = 'Name') {
+
+
+		return $this->views->make('test');
+
+
+		$loader = new \Twig_Loader_Filesystem(WP_CONTENT_DIR . '/themes/test-theme/');
+		$twig = new \Twig_Environment($loader);
+
+		$data = [
+			'whoareyou' => 'Luke',
+			'people' => [
+				['name' => 'John'],
+				['name' => 'Sukhi'],
+			],
+		];
+
+		echo $twig->render('test.twig', $data);
+
+
+		// $str = view('test')->render();
+		// _var_dump($str);
+
+
+
+
+
+		die();
+
+
+
+
+		$posts = slab('Slab\Theme\Repositories\WpPostRepository');
+
+
+		$posts->query([
+			'post_type' => 'page',
+		]);
+
+		_print_r($posts);
+
+
+		die();
+
+
+		$age = $req->query->get('age', 19);
+
+		$people = $db->select('name')->from('test_table')->where('age', '>', $age)->get();
+
+		return $this->views->make('test', ['people' => $people]);
+
+
+
 
 
 

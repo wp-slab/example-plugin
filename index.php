@@ -22,7 +22,7 @@ define('HL_EXAMPLE_URL', plugin_dir_url(__FILE__));
 // Init
 add_action('slab_loaded', function($slab){
 
-	$slab->autoloader->registerNamespace('Example', HL_EXAMPLE_DIR . 'src');
+	// $slab->autoloader->registerNamespace('Example', HL_EXAMPLE_DIR . 'src');
 
 });
 
@@ -30,14 +30,14 @@ add_action('slab_loaded', function($slab){
 // Routes
 add_action('slab_router_routes', function($routes){
 
-	$routes->get('hello', function(\Slab\Core\Http\RequestInterface $req){
-		_print_r($req->query->all());
-		return 'Hello, World!';
-	});
+	// $routes->get('hello', function(\Slab\Core\Http\RequestInterface $req){
+	// 	_print_r($req->query->all());
+	// 	return 'Hello, World!';
+	// });
 
 	$routes->get('test', 'Example\Controllers\TestController@getIndex');
 	$routes->get('hello/{name}', 'Example\Controllers\TestController@getIndex');
-	$routes->get('one/{num?}', 'Example\Controllers\TestController@getIndex');
+	$routes->get('one[/{num}]', 'Example\Controllers\TestController@getIndex');
 
 });
 

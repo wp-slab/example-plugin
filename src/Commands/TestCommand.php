@@ -26,7 +26,7 @@ class TestCommand extends Command {
 	 **/
 	public function doSomething() {
 
-		var_dump('doing something');
+		$this->write('doing something');
 
 	}
 
